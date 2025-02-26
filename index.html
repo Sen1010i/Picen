@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> THIS IS OUR MEMORIALS!! 🥰🥳</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 50px;
+            color: #555;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 1000px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            white-space: nowrap;
+
+        }
+
+        .gallery-container img {
+            height: 200px;
+            border-radius: 10px;
+            
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Pop-up Style */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+        /* Kontainer untuk gambar agar bisa di-scroll */
+        .image-container {
+            max-height: 90vh;
+            max-width: 90vw;
+            overflow: auto;
+             /* ✅ Ini yang membuat gambar bisa di-scroll */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+
+        /*Player Style */
+        .audio-player {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .audio-player audio {
+            outline: none;
+            margin-top: 20px;
+        }
+
+        .countdown-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .countdown {
+            font-size: 24px;
+            color: #555;
+        }
+
+        /* Surat Cinta Style */
+        .love-letter-container {
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+            width : 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-height: 200px; /* Tentukan tinggi minimum agar bentuknya tidak berubah */
+    overflow: hidden;
+        }
+
+        .love-letter {
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            border-left: 5px solid #ff6f61;
+            padding-left: 20px;
+            transition: font-size 0s;
+        }
+
+        .love-letter span {
+            visibility: visible;
+        }
+
+        /* Animasi untuk surat cinta */
+        @keyframes typing {
+            from {
+                width: 0;
+                max-width: none;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+            
+        
+            .modal-content {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .modal-content img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 10px;
+            }
+
+            .prev, .next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 30px;
+                color: white;
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 10px;
+                border-radius: 50%;
+                user-select: none;
+                }
+
+            .prev {
+                left: 10px;
+            }
+
+            .next {
+                right: 10px;
+            }
+
+            .prev:hover, .next:hover {
+                background: rgba(0, 0, 0, 0.8);
+            }
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                color: white;
+                font-size: 30px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        /* Tombol navigasi */
+            .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 50%;
+            user-select: none;
+            }
+            .close:hover {
+                color: #ccc;
+            }
+
+        
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.0/lazysizes.min.js" async></script>
+</head>
+
+<body>
+
+    <h1>💞✨ OUR MEMORIES 💞✨</h1>
+    <div class="countdown-container">
+        <h2>------------------------------------------------------------------------------------------</h2>
+        <h2>🎂🎈 Anniversary's Day 🎂🎈</h2>
+        <div class="countdown" id="countdown"></div>
+    </div>
+    <h2>------------------------------------------------------------------------------------------</h2>
+    <div class="audio-player">
+        <h2>Eitttss Mulai dulu lagunya donggg!!🤪🤪</h2>
+        <audio autoplay controls>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
+        <h2>------------------------------------------------------------------------------------------</h2>
+    </div>
+    
+<div class="love-letter-container">
+    <h2>Surat Cinta untukmu</h2>
+    <div class="love-letter" id="loveLetter"></div>
+</div>
+    
+    <div class="gallery-container">
+        <div class="gallery-item">
+                <img src="olip.jpg" alt="Lucuuu" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="olipaku.jpg" alt="chubiii" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image3.jpg" alt="lutunaaa" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image33.jpg" alt="luchuunaaa" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image5.jpg" alt="neee chubi caii" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image6.jpg" alt="auuu ne chubi" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image7.jpg" alt="suiiii" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image8.jpg" alt="pintell" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image9.jpg" alt="pentolll" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image10.jpg" alt="i" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image11.jpg" alt="love" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image12.jpg" alt="you" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+
+            <img src="image13.JPG" alt="tayangg" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image14.JPG" alt="everytime" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image15.JPG" alt="everyhour" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image16.JPG" alt="everysecond" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image17.JPG" alt="tomorrow" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image18.JPG" alt="yesterday" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image19.jpg" alt="today" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image20.jpg" alt="until" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image21.jpg" alt="the" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image22.jpg" alt="end" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image23.jpg" alt="!!!??" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+            <img src="image24.jpg" alt="vvvv" loading="lazy" onclick="openModal(this)">
+        </div>
+        <div class="gallery-item">
+        
+
+            
+
+            <!-- Tambahkan lebih banyak gambar sesuai keinginan -->
+        </div>
+
+        <!-- Pop-up Modal -->
+        <div id="modal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-content">
+                <img id="modalImage" src="" alt="Gambar Kenangan">
+            </div>
+        </div>
+        
+        <script>
+            function openModal(image) {
+                var modal = document.getElementById('modal');
+                var modalImage = document.getElementById('modalImage');
+                modal.style.display = "flex";
+                modalImage.src = image.src;
+            }
+
+            function closeModal() {
+                var modal = document.getElementById('modal');
+                modal.style.display = "none";
+            }
+
+            // Close the modal when clicking outside the image
+            window.onclick = function (event) {
+                var modal = document.getElementById('modal');
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Fungsi untuk hitungan mundur ulang tahun
+            function countdownTimer() {
+                // Tentukan tanggal ulang tahun (ganti dengan tanggal ulang tahun pacarmu)
+                var birthday = new Date("31 Oct, 2025 00:00:00").getTime();
+
+                // Perbarui hitungan setiap detik
+                var x = setInterval(function () {
+                    // Ambil tanggal dan waktu sekarang
+                    var now = new Date().getTime();
+
+                    // Hitung jarak waktu antara sekarang dan tanggal ulang tahun
+                    var distance = birthday - now;
+
+                    // Hitung waktu untuk hari, jam, menit, dan detik
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Tampilkan hasilnya di elemen dengan id="countdown"
+                    document.getElementById("countdown").innerHTML = days + " Days " + hours + " Hours "
+                        + minutes + " Minutes " + seconds + " Seconds ";
+
+                    // Jika hitungan sudah selesai
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("countdown").innerHTML = "Selamat Ulang Tahun!";
+                    }
+                }, 1000);
+            }
+
+
+// Fungsi untuk animasi surat cinta digital
+function typeLetter(text, elementId, delay = 100) {
+    let letterContainer = document.getElementById(elementId);
+    let i = 0;
+    console.log("Memulai animasi surat cinta..."); // Tambahkan log untuk pengecekan
+
+    function type() {
+        if (i < text.length) {
+            let span = document.createElement('span');
+            span.innerHTML = text.charAt(i);
+            letterContainer.appendChild(span);
+            i++;
+            setTimeout(type, delay);
+        } else {
+            console.log("Surat cinta selesai ditampilkan"); // Log ketika animasi selesai
+        }
+    }
+    type();
+        }
+            
+// Panggil fungsi hitungan mundur dan animasi surat cinta ketika halaman dimuat
+            countdownTimer();
+            var suratCinta = "Selamat ulang tahun, my little babyy!!. Hari ini, aku merayakan bukan hanya usiamu yang bertambah, tapi juga setiap momen yang kita lalui bersama, setiap tawa, pelukan, dan kebahagiaan yang telah kamu hadirkan dalam hidupku. Kamu adalah cahaya yang selalu menerangi hari-hariku, alasan di balik setiap senyumku, dan tempat teraman saat dunia terasa berat.\n"
+                + "Setiap detik bersamamu adalah anugerah yang tak ternilai. Aku masih ingat saat pertama kali kita bertemu, dan hingga hari ini, aku terus merasa beruntung memiliki kamu di sisiku. Kamu membuat hidupku lebih indah dengan kehadiranmu, dengan kebaikan hatimu, dengan cinta yang tulus kamu berikan. Aku berharap bisa selalu berada di sampingmu, mencintaimu di setiap kesempatan, dan memberikan kebahagiaan yang sama seperti yang selalu kamu berikan padaku.\n"
+                + "Di hari yang istimewa ini, aku berdoa agar setiap impianmu terwujud, Terima kasih telah menjadi bagian terbaik dari hidupku, babyy yang tak tergantikan. Selamat ulang tahun, Bersamamu adalah perjalanan yang paling indah, dan aku berharap perjalanan ini tak akan pernah berakhir. I LOVE YOUUUU ❤🎂🎈\n"
+                + "SILAHKAN DILIHAT FOTO-FOTONYA YANG LUCUU DAN CANTIK INII 🫠🫠🫠";
+            typeLetter(suratCinta, "loveLetter", 50);
+        </script>
+
+<!-- Modal untuk menampilkan gambar -->
+<div id="modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+        <span class="prev" onclick="changeImage(-1)">&#10094;</span> <!-- Tombol Previous -->
+        <div class="image-container">
+            <img id="modalImage" src="" alt="Gambar">
+        </div>
+        <span class="next" onclick="changeImage(1)">&#10095;</span> <!-- Tombol Next -->
+    </div>
+</div>
+
+<script>
+    let currentIndex = 0;
+    let images = [];
+
+    function openModal(image) {
+        images = Array.from(document.querySelectorAll('.gallery-item img')); // Ambil semua gambar
+        currentIndex = images.findIndex(img => img.src === image.src); // Cari indeks gambar yang diklik
+        updateModalImage();
+        document.getElementById('modal').style.display = "flex";
+        document.body.style.overflow = "hidden"; // Hentikan scroll halaman belakang
+    }
+
+    function updateModalImage() {
+        let modalImage = document.getElementById('modalImage');
+        if (images.length > 0 && currentIndex >= 0 && currentIndex < images.length) {
+            modalImage.src = images[currentIndex].src;
+        }
+    }
+
+    function changeImage(step) {
+        currentIndex = (currentIndex + step + images.length) % images.length; // Looping jika di awal/akhir
+        updateModalImage();
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = "none";
+        document.body.style.overflow = "auto"; // Aktifkan kembali scroll halaman
+    }
+
+    // Navigasi dengan keyboard (panah kiri & kanan)
+    document.addEventListener('keydown', function(event) {
+        let modal = document.getElementById('modal');
+        if (modal.style.display === "flex") {
+            if (event.key === "ArrowRight") {
+                changeImage(1);
+            } else if (event.key === "ArrowLeft") {
+                changeImage(-1);
+            } else if (event.key === "Escape") {
+                closeModal();
+            }
+        }
+    });
+</script>
+
+
+
+</body>
+
+</html>
