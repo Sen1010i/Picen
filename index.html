@@ -483,10 +483,10 @@ function typeLetter(text, elementId, delay = 100) {
 
     function closeModal() {
     document.getElementById('modal').style.display = "none";
-    document.body.removeAttribute("style"); // Hapus atribut style agar kembali ke default
+    document.body.style.overflow = ""; // Kembalikan ke gaya default tanpa memaksa "auto"
     }
 
-    
+
 
     // Navigasi dengan keyboard (panah kiri & kanan)
     document.addEventListener('keydown', function(event) {
