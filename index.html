@@ -469,10 +469,9 @@ function typeLetter(text, elementId, delay = 100) {
 
     function updateModalImage() {
         let modalImage = document.getElementById('modalImage');
-        if (images.length > 0 && currentIndex >= 0 && currentIndex < images.length) {
             modalImage.src = images[currentIndex].src;
         }
-    }
+    
 
     function changeImage(step) {
         currentIndex = (currentIndex + step + images.length) % images.length; // Looping jika di awal/akhir
