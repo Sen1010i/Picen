@@ -450,6 +450,43 @@ function typeLetter(text, elementId, delay = 100) {
 </div>
 
 <script>
+    let currentIndex = 0;
+    let images = [];
+
+    function openModal(image) {
+    console.log("Modal dibuka"); // Debugging
+    images = Array.from(document.querySelectorAll('.gallery img'));
+    currentIndex = images.findIndex(img => img.src === image.src);
+
+    if (currentIndex !== -1) {
+        updateModalImage();
+        document.getElementById('modal').style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+
+    function updateModalImage() {
+        let modalImage = document.getElementById('modalImage');
+        if (images.length > 0 && currentIndex >= 0 && currentIndex < images.length) {
+            modalImage.src = images[currentIndex].src;
+            console.log("Gambar modal diperbarui ke:", modalImage.src);
+        }
+    }
+    }
+    function changeImage(step) {
+        if (images.length === 0) return;
+        
+    console.log("Gambar sebelum:", images[currentIndex].src); // Debugging
+    currentIndex = (currentIndex + step + images.length) % images.length;
+    console.log("Gambar sesudah:", images[currentIndex].src); // Debugging
+    updateModalImage();
+}
+
+
+function closeModal() {
+    console.log("Modal ditutup"); // Debugging
+    document.getElementById('modal').style.display = "none";
+    document.body.style.overflow = "auto";
+}
 
     // Navigasi dengan keyboard (panah kiri & kanan)
     document.addEventListener('keydown', function(event) {
