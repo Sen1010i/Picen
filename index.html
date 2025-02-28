@@ -75,7 +75,6 @@
             background-color: rgba(0, 0, 0, 0.8);
             justify-content: center;
             align-items: center;
-            overflow: auto;
         }
         /* Kontainer untuk gambar agar bisa di-scroll */
         .image-container {
@@ -98,8 +97,8 @@
         }
         .modal-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 80%;
+            max-height: 80%;
            
         }
 
@@ -185,22 +184,7 @@
             }
         }
             
-        
-            .modal-content {
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              
 
-            }
-            .modal-content img {
-                max-width: 90%;
-                max-height: 90%;
-                border-radius: 10px;
-              
-        
-            }
 
             .prev, .next {
                 position: absolute;
@@ -362,12 +346,14 @@
         </div>
 
         <!-- Pop-up Modal -->
-        <div id="modal" class="modal">
+        <div id="modal" class="modal" style="display: none;">
             <span class="close" onclick="closeModal()">&times;</span>
             <div class="modal-content">
                 <img id="modalImage" src="" alt="Gambar Kenangan">
+                <img class="modal-content" id="modalImage">
+                    <button class="prev" onclick="changeImage(-1)">❮</button>
+                    <button class="next" onclick="changeImage(1)">❯</button>
             </div>
-        </div>
         
         <script>
             function openModal(image) {
@@ -468,14 +454,16 @@ function typeLetter(text, elementId, delay = 100) {
     let images = [];
 
     function openModal(image) {
-        console.log("Modal dibuka");
-        images = Array.from(document.querySelectorAll('.gallery-item img')); // Ambil semua gambar
-        currentIndex = images.findIndex(img => img.src === image.src); // Cari indeks gambar yang diklik
+    console.log("Modal dibuka"); // Debugging
+    images = Array.from(document.querySelectorAll('.gallery img'));
+    currentIndex = images.findIndex(img => img.src === image.src);
+
+    if (currentIndex !== -1) {
         updateModalImage();
         document.getElementById('modal').style.display = "flex";
-        document.body.style.overflow = "hidden"; // Hentikan scroll halaman belakang
+        document.body.style.overflow = "hidden";
     }
-
+    }
     function updateModalImage() {
         let modalImage = document.getElementById('modalImage');
         if (images.length > 0 && currentIndex >= 0 && currentIndex < images.length) {
@@ -485,6 +473,8 @@ function typeLetter(text, elementId, delay = 100) {
     }
 
     function changeImage(step) {
+        if (images.length === 0) return;
+
     console.log("Gambar sebelum:", images[currentIndex].src); // Debugging
     currentIndex = (currentIndex + step + images.length) % images.length;
     console.log("Gambar sesudah:", images[currentIndex].src); // Debugging
