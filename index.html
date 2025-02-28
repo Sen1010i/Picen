@@ -482,9 +482,11 @@ function typeLetter(text, elementId, delay = 100) {
     }
 
     function closeModal() {
-        document.getElementById('modal').style.display = "none";
-        document.body.style.overflow = "auto"; // Aktifkan kembali scroll halaman
+    document.getElementById('modal').style.display = "none";
+    document.body.removeAttribute("style"); // Hapus atribut style agar kembali ke default
     }
+
+    
 
     // Navigasi dengan keyboard (panah kiri & kanan)
     document.addEventListener('keydown', function(event) {
