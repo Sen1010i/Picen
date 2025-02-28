@@ -94,20 +94,20 @@
             max-height: 100%;
             width: auto;
             height: auto;
-            overflow-x: auto;
+           
         }
         .modal-content {
             position: relative;
             max-width: 90%;
             max-height: 90%;
-            overflow-x: auto;
+           
         }
 
         .modal-content img {
             width: 100%;
             height: auto;
             border-radius: 10px;
-            overflow-x: auto;
+          
         }
 
         .close {
@@ -468,6 +468,7 @@ function typeLetter(text, elementId, delay = 100) {
     let images = [];
 
     function openModal(image) {
+        console.log("Modal dibuka");
         images = Array.from(document.querySelectorAll('.gallery-item img')); // Ambil semua gambar
         currentIndex = images.findIndex(img => img.src === image.src); // Cari indeks gambar yang diklik
         updateModalImage();
@@ -479,20 +480,23 @@ function typeLetter(text, elementId, delay = 100) {
         let modalImage = document.getElementById('modalImage');
         if (images.length > 0 && currentIndex >= 0 && currentIndex < images.length) {
             modalImage.src = images[currentIndex].src;
+            console.log("Gambar modal diperbarui ke:", modalImage.src);
         }
     }
 
     function changeImage(step) {
-        currentIndex = (currentIndex + step + images.length) % images.length; // Looping jika di awal/akhir
-        updateModalImage();
-    }
+    console.log("Gambar sebelum:", images[currentIndex].src); // Debugging
+    currentIndex = (currentIndex + step + images.length) % images.length;
+    console.log("Gambar sesudah:", images[currentIndex].src); // Debugging
+    updateModalImage();
+}
 
-    function closeModal() {
+
+function closeModal() {
+    console.log("Modal ditutup"); // Debugging
     document.getElementById('modal').style.display = "none";
-    document.body.style.overflow = ""; // Kembalikan ke gaya default tanpa memaksa "auto"
-    }
-
-
+    document.body.style.overflow = "auto";
+}
 
     // Navigasi dengan keyboard (panah kiri & kanan)
     document.addEventListener('keydown', function(event) {
